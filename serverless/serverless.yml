@@ -1,0 +1,46 @@
+# Welcome to serverless. Read the docs
+# https://serverless.com/framework/docs/
+
+# Serverless.yml is the configuration the CLI
+# uses to deploy your code to your provider of choice
+
+# The `service` block is the name of the service
+service: serverless-load-dataset
+
+# Custom variables
+custom:
+  BUCKET_NAME: wine-dataset
+  KEY_FILE_DATA_SET: wine-dataset.json
+  TABLE_NAME: WineData
+
+# The `provider` block defines where your service will be deployed
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: eu-west-3
+
+#Lambda functions
+functions:
+  loadWineDataset:
+    handler: wine-data/load-winedata-database.handler
+    memorySize: 1024
+    timeout: 180
+    role: YOUR ARN ROLE HERE
+    environment:
+      BUCKET_NAME: ${self:custom.BUCKET_NAME}
+      KEY_FILE_DATA_SET: ${self:custom.KEY_FILE_DATA_SET}
+      TABLE_NAME: ${self:custom.TABLE_NAME}
+
+resources:
+  Resources:
+    wineData:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.TABLE_NAME}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST

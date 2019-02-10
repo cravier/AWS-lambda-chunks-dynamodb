@@ -1,0 +1,9 @@
+{
+  "name": "node-js-wine-data",
+  "version": "0.0.1",
+  "description": "NodeJS functions for serverless Wine Data laod",
+  "dependencies": {
+    "dynamodb-data-types": "^3.0.1"
+  },
+  "author": "Clément Ravier"
+}
