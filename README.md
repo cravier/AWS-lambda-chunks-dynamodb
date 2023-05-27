@@ -1,3 +1,5 @@
+🔴 [DEPRECATED] 🔴
+
 ![Services architecture](https://github.com/cravier/lambda-chunks-dynamodb/blob/master/res/lambda_chunks_insert.png)
 
 # Description  
